@@ -43,6 +43,8 @@ namespace PrincessPartyer
             while (reader.Read())
                 cmbReference.Items.Add(reader["DiscoveredFrom"]);
 
+            m_dbConnection.Close();
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -52,6 +54,7 @@ namespace PrincessPartyer
         private void button1_Click(object sender, EventArgs e)
         {
             SQLiteConnection m_dbConnection;
+
             m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
             m_dbConnection.Open();
 
@@ -85,14 +88,56 @@ namespace PrincessPartyer
             sqlvals += cmbReference.Text + "', '";
             sqlvals += lastEventID + "')";
             sql = sqlcols + sqlvals;
+
             command = new SQLiteCommand(sql, m_dbConnection);
-            command.ExecuteNonQuery();
+            command.ExecuteNonQuery(); m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+
+            m_dbConnection.Close();
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             label13.Text = cmbPrincess.SelectedIndex.ToString();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SQLiteConnection m_dbConnection;
+            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+            m_dbConnection.Open();
+
+            SQLiteCommand command;
+            SQLiteDataReader reader;
+            foreach (var series in BarGraph.Series)
+            {
+                series.Points.Clear();
+            }
+
+            command = new SQLiteCommand("SELECT strftime('%m',EventDate) || '/' || strftime('%Y', EventDate) as Date, count(*) as count FROM events AS e GROUP BY Date ORDER BY Date ASC", m_dbConnection);
+            reader = command.ExecuteReader();
+            while (reader.Read())
+                BarGraph.Series["Dates"].Points.AddXY(reader["Date"], reader["Count"]);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SQLiteConnection m_dbConnection;
+
+            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+            m_dbConnection.Open();
+            foreach (var series in BarGraph.Series)
+            {
+                series.Points.Clear();
+            }
+
+            SQLiteCommand command;
+            SQLiteDataReader reader;
+            
+            command = new SQLiteCommand("SELECT strftime('%m',BookDate) || '/' || strftime('%Y', BookDate) as Date, count(*) as count FROM events AS e GROUP BY Date ORDER BY Date ASC", m_dbConnection);
+            reader = command.ExecuteReader();
+            while (reader.Read())
+                BarGraph.Series["Dates"].Points.AddXY(reader["Date"], reader["Count"]);
         }
     }
 }

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -60,16 +62,23 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label13 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.BarGraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button4 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BarGraph)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -156,8 +165,8 @@
             // 
             // calPartyDate
             // 
-            this.calPartyDate.CustomFormat = "";
-            this.calPartyDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.calPartyDate.CustomFormat = "yyyy-MM-dd";
+            this.calPartyDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.calPartyDate.Location = new System.Drawing.Point(86, 157);
             this.calPartyDate.Name = "calPartyDate";
             this.calPartyDate.Size = new System.Drawing.Size(100, 20);
@@ -241,8 +250,8 @@
             // 
             // calBookDate
             // 
-            this.calBookDate.CustomFormat = "";
-            this.calBookDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.calBookDate.CustomFormat = "yyyy-MM-dd";
+            this.calBookDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.calBookDate.Location = new System.Drawing.Point(91, 170);
             this.calBookDate.Name = "calBookDate";
             this.calBookDate.Size = new System.Drawing.Size(100, 20);
@@ -348,12 +357,15 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.BarGraph);
+            this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(480, 282);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Check Data";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label13
@@ -364,6 +376,7 @@
             this.label13.Size = new System.Drawing.Size(41, 13);
             this.label13.TabIndex = 22;
             this.label13.Text = "label13";
+            this.label13.Visible = false;
             // 
             // button2
             // 
@@ -373,7 +386,50 @@
             this.button2.TabIndex = 23;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(6, 6);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "Event Dates";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // BarGraph
+            // 
+            chartArea4.Name = "Dates";
+            this.BarGraph.ChartAreas.Add(chartArea4);
+            this.BarGraph.Location = new System.Drawing.Point(6, 35);
+            this.BarGraph.Name = "BarGraph";
+            series4.ChartArea = "Dates";
+            series4.Name = "Dates";
+            this.BarGraph.Series.Add(series4);
+            this.BarGraph.Size = new System.Drawing.Size(468, 241);
+            this.BarGraph.TabIndex = 1;
+            this.BarGraph.Text = "chart1";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(87, 6);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Book Dates";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(480, 282);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Resources";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -382,7 +438,7 @@
             this.ClientSize = new System.Drawing.Size(503, 326);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Princess Partyer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -391,6 +447,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BarGraph)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -429,6 +487,10 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart BarGraph;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }
 
