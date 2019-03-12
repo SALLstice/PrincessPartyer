@@ -10,12 +10,12 @@ namespace PrincessPartyer
         {
             InitializeComponent();
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             SQLiteConnection m_dbConnection;
-
-            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+        
+            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/me/Downloads/WUAS.db;Version=3;");
             m_dbConnection.Open();
 
             SQLiteCommand command = new SQLiteCommand("select Package from packages", m_dbConnection);
@@ -55,7 +55,7 @@ namespace PrincessPartyer
         {
             SQLiteConnection m_dbConnection;
 
-            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/me/Downloads/WUAS.db;Version=3;");
             m_dbConnection.Open();
 
             string sqlcols, sqlvals, sql;
@@ -90,7 +90,7 @@ namespace PrincessPartyer
             sql = sqlcols + sqlvals;
 
             command = new SQLiteCommand(sql, m_dbConnection);
-            command.ExecuteNonQuery(); m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+            command.ExecuteNonQuery(); m_dbConnection = new SQLiteConnection("Data Source=C:/Users/me/Downloads/WUAS.db;Version=3;");
 
             m_dbConnection.Close();
 
@@ -104,7 +104,7 @@ namespace PrincessPartyer
         private void button3_Click(object sender, EventArgs e)
         {
             SQLiteConnection m_dbConnection;
-            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/me/Downloads/WUAS.db;Version=3;");
             m_dbConnection.Open();
 
             SQLiteCommand command;
@@ -118,13 +118,15 @@ namespace PrincessPartyer
             reader = command.ExecuteReader();
             while (reader.Read())
                 BarGraph.Series["Dates"].Points.AddXY(reader["Date"], reader["Count"]);
+
+            m_dbConnection.Close();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             SQLiteConnection m_dbConnection;
 
-            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/Matt/Documents/sqllite/WUAS.db;Version=3;");
+            m_dbConnection = new SQLiteConnection("Data Source=C:/Users/me/Downloads/WUAS.db;Version=3;");
             m_dbConnection.Open();
             foreach (var series in BarGraph.Series)
             {
@@ -138,6 +140,8 @@ namespace PrincessPartyer
             reader = command.ExecuteReader();
             while (reader.Read())
                 BarGraph.Series["Dates"].Points.AddXY(reader["Date"], reader["Count"]);
+
+            m_dbConnection.Close();
         }
     }
 }
